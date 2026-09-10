@@ -1,0 +1,104 @@
+{
+  "name": "topographic-time-2",
+  "author": "Chris Sopko",
+  "version": "1.0.0",
+  "keywords": [
+    "pebble-app",
+    "watchface",
+    "topographic"
+  ],
+  "private": true,
+  "dependencies": {
+    "pebble-clay": "^1.0.4"
+  },
+  "pebble": {
+    "displayName": "Topographic",
+    "uuid": "fe95f7f0-5baf-4f38-86ec-60bb736b9c46",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "capabilities": [
+      "configurable"
+    ],
+    "messageKeys": {
+      "Orientation": 0,
+      "BackgroundColor": 1,
+      "LineColor": 2,
+      "TextColor": 3,
+      "FontStyle": 4
+    },
+    "resources": {
+      "media": [
+        {
+          "type": "bitmap",
+          "name": "TOPO_TOP_RIGHT",
+          "file": "images/topo_v5_top_right.png",
+          "memoryFormat": "1BitPalette",
+          "targetPlatforms": [
+            "emery"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "TOPO_TOP_LEFT",
+          "file": "images/topo_v5_top_left.png",
+          "memoryFormat": "1BitPalette",
+          "targetPlatforms": [
+            "emery"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "TOPO_BOTTOM_RIGHT",
+          "file": "images/topo_v5_bottom_right.png",
+          "memoryFormat": "1BitPalette",
+          "targetPlatforms": [
+            "emery"
+          ]
+        },
+        {
+          "type": "bitmap",
+          "name": "TOPO_BOTTOM_LEFT",
+          "file": "images/topo_v5_bottom_left.png",
+          "memoryFormat": "1BitPalette",
+          "targetPlatforms": [
+            "emery"
+          ]
+        },
+        {
+          "type": "font",
+          "name": "FONT_ROBOTO_LIGHT_TIME_46",
+          "file": "fonts/Roboto-Light.ttf",
+          "characterRegex": "[:0-9]",
+          "targetPlatforms": ["emery"]
+        },
+        {
+          "type": "font",
+          "name": "FONT_ROBOTO_LIGHT_DATE_21",
+          "file": "fonts/Roboto-Light.ttf",
+          "characterRegex": "[ A-Z0-9]",
+          "targetPlatforms": ["emery"]
+        },
+        {
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_TIME_46",
+          "file": "fonts/Roboto-Bold.ttf",
+          "characterRegex": "[:0-9]",
+          "targetPlatforms": ["emery"]
+        },
+        {
+          "type": "font",
+          "name": "FONT_ROBOTO_BOLD_DATE_21",
+          "file": "fonts/Roboto-Bold.ttf",
+          "characterRegex": "[ A-Z0-9]",
+          "targetPlatforms": ["emery"]
+        }
+      ]
+    }
+  }
+}

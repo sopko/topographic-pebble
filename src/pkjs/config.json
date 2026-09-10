@@ -1,0 +1,82 @@
+[
+  {
+    "type": "heading",
+    "defaultValue": "Topographic Settings"
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Layout"
+      },
+      {
+        "type": "select",
+        "messageKey": "Orientation",
+        "label": "Date & time corner",
+        "defaultValue": "0",
+        "options": [
+          { "label": "Top right", "value": "0" },
+          { "label": "Top left", "value": "1" },
+          { "label": "Bottom right", "value": "2" },
+          { "label": "Bottom left", "value": "3" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Colors"
+      },
+      {
+        "type": "color",
+        "messageKey": "BackgroundColor",
+        "label": "Background",
+        "defaultValue": "000000",
+        "sunlight": false
+      },
+      {
+        "type": "color",
+        "messageKey": "LineColor",
+        "label": "Topographic lines",
+        "defaultValue": "aaaaaa",
+        "sunlight": false
+      },
+      {
+        "type": "color",
+        "messageKey": "TextColor",
+        "label": "Date & time",
+        "defaultValue": "ffffff",
+        "sunlight": false
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Typography"
+      },
+      {
+        "type": "select",
+        "messageKey": "FontStyle",
+        "label": "Date & time font",
+        "defaultValue": "0",
+        "options": [
+          { "label": "Modern light", "value": "0" },
+          { "label": "Modern bold", "value": "1" },
+          { "label": "Digital", "value": "2" },
+          { "label": "Roboto", "value": "3" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "submit",
+    "defaultValue": "Save settings"
+  }
+]
