@@ -60,7 +60,7 @@ static void recolor_backgrounds(void) {
 static GFont time_font(void) {
   switch (s_font_style) {
     case 1: return s_time_bold_font;
-    case 2: return fonts_get_system_font(FONT_KEY_LECO_60_NUMBERS_AM_PM);
+    case 2: return fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
     case 3: return fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49);
     default: return s_time_light_font;
   }
@@ -110,7 +110,7 @@ static void face_update_proc(Layer *layer, GContext *ctx) {
                      GRect(left ? 9 : 51, date_y, 135, 29),
                      GTextOverflowModeTrailingEllipsis, alignment, NULL);
   graphics_draw_text(ctx, time_buffer, time_font(),
-                     GRect(left ? 7 : 39, time_y, 149, 65),
+                     GRect(left ? 12 : 4, time_y, 184, 65),
                      GTextOverflowModeTrailingEllipsis, alignment, NULL);
 }
 
