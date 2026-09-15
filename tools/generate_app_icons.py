@@ -20,9 +20,6 @@ def render_master():
     time_font = ImageFont.truetype(FONTS / "Roboto-Light.ttf", 68)
     draw.text((266, 35), "10:09", font=time_font, fill="#FFFFFF", anchor="ra")
 
-    # A restrained cyan keyline keeps the icon distinct at small sizes.
-    draw.rounded_rectangle((5, 5, 282, 282), radius=43, outline="#55FFFF", width=5)
-
     clip = Image.new("L", master.size, 0)
     ImageDraw.Draw(clip).rounded_rectangle((0, 0, 287, 287), radius=48, fill=255)
     finished = Image.new("RGB", master.size, "#050708")
