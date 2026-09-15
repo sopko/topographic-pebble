@@ -12,14 +12,45 @@ SIZE = (200, 228)
 BANNER_SIZE = (720, 320)
 
 VARIANTS = [
-    ("top_right", "#000000", "#AAAAAA", "#FFFFFF"),
-    ("top_left", "#000055", "#55FFFF", "#FFFFFF"),
-    ("bottom_right", "#550000", "#FFAA55", "#FFFFFF"),
-    ("bottom_left", "#FFFFAA", "#005555", "#000000"),
+    ("top_right", "#000000", "#AAAAAA", "#FFFFFF", "light"),
+    ("top_left", "#000055", "#55FFFF", "#FFFFFF", "bold"),
+    ("bottom_right", "#550000", "#FFAA55", "#FFFFFF", "digital"),
+    ("bottom_left", "#FFFFAA", "#005555", "#000000", "roboto"),
 ]
 
 
-def render_face(orientation, background, contours, text):
+SEGMENTS = {
+    "0": "abcedf", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc",
+    "5": "afgcd", "6": "afgecd", "7": "abc", "8": "abcdefg", "9": "abfgcd",
+}
+
+
+def draw_digital_time(draw, value, x, y, fill, left):
+    digit_width, digit_height, thickness, spacing, colon_width = 22, 36, 4, 4, 8
+    widths = [colon_width if character == ":" else digit_width for character in value]
+    total_width = sum(widths) + spacing * (len(value) - 1)
+    cursor = x if left else x - total_width
+
+    for character, width in zip(value, widths):
+        if character == ":":
+            draw.ellipse((cursor + 2, y + 10, cursor + 6, y + 14), fill=fill)
+            draw.ellipse((cursor + 2, y + 24, cursor + 6, y + 28), fill=fill)
+        else:
+            segment_boxes = {
+                "a": (cursor + thickness, y, cursor + width - thickness, y + thickness),
+                "b": (cursor + width - thickness, y + thickness, cursor + width, y + digit_height // 2),
+                "c": (cursor + width - thickness, y + digit_height // 2, cursor + width, y + digit_height - thickness),
+                "d": (cursor + thickness, y + digit_height - thickness, cursor + width - thickness, y + digit_height),
+                "e": (cursor, y + digit_height // 2, cursor + thickness, y + digit_height - thickness),
+                "f": (cursor, y + thickness, cursor + thickness, y + digit_height // 2),
+                "g": (cursor + thickness, y + digit_height // 2 - 2, cursor + width - thickness, y + digit_height // 2 + 2),
+            }
+            for segment in SEGMENTS[character]:
+                draw.rectangle(segment_boxes[segment], fill=fill)
+        cursor += width + spacing
+
+
+def render_face(orientation, background, contours, text, font_style):
     mask = Image.open(IMAGES / f"topo_v5_{orientation}.png").convert("L")
     face = Image.new("RGB", SIZE, background)
     line_layer = Image.new("RGB", SIZE, contours)
@@ -28,15 +59,21 @@ def render_face(orientation, background, contours, text):
     left = orientation.endswith("left")
     bottom = orientation.startswith("bottom")
     draw = ImageDraw.Draw(face)
-    date_font = ImageFont.truetype(FONTS / "Roboto-Light.ttf", 21)
-    time_font = ImageFont.truetype(FONTS / "Roboto-Light.ttf", 46)
+    bold = font_style in ("bold", "digital", "roboto")
+    date_font = ImageFont.truetype(FONTS / ("Roboto-Bold.ttf" if bold else "Roboto-Light.ttf"),
+                                   22 if font_style == "digital" else 21)
+    time_font = ImageFont.truetype(FONTS / ("Roboto-Bold.ttf" if bold else "Roboto-Light.ttf"),
+                                   49 if font_style == "roboto" else 46)
     date_y = 10 if not bottom else 132
     time_y = 31 if not bottom else 153
     anchor = "la" if left else "ra"
     x = 9 if left else 188
 
     draw.text((x, date_y), "THU 10", font=date_font, fill=text, anchor=anchor)
-    draw.text((x, time_y), "10:09", font=time_font, fill=text, anchor=anchor)
+    if font_style == "digital":
+        draw_digital_time(draw, "10:09", 12 if left else 188, time_y + 12, text, left)
+    else:
+        draw.text((x, time_y), "10:09", font=time_font, fill=text, anchor=anchor)
     return face
 
 
